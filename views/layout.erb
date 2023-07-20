@@ -7,6 +7,14 @@
     <div class='page_title'>
       <h1>Survey App</h1>
     </div>
+    <div class='messages'>
+      <% if session[:success] %>
+        <%= session.delete(:success) %>
+      <% end %>
+      <% if session[:error] %>
+        <%= session.delete(:error) %>
+      <% end %>
+    </div>
     <div class='nav_bar'>
       <ul>
         <li> Survey </li>

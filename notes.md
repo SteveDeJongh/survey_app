@@ -17,11 +17,20 @@ Results - Provides summary of all survey results.
 List of Completed surveys - individual survey listed by id and input name.
 individual survey details - details of survey with each individual questions answer.
 
+PAGES:
+
 Layout page:
-When not logged in: top nav bar start survey, log in
-When logged in: start survey, signout, view results
+navbar:
+  When not logged in: top nav bar start survey, log in
+  When logged in: start survey, signout, view results
 
+home:
+generic paragraph
 
+sign_in:
+sign in form with username and password submit button
+
+Done:
 Database:
 Users:
   id

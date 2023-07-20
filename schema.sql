@@ -12,3 +12,6 @@ CREATE TABLE responses (
   q2 text,
   q3 text
 );
+
+INSERT INTO users (name, password)
+VALUES ('Admin', '$2a$12$0XgEG6VcjXnEJXwZCVU92udirn1Ysfj1OnSiR.sMkn1LoM0dufZZ.');
