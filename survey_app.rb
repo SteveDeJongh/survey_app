@@ -67,13 +67,30 @@ get '/survey' do
   erb :survey, layout: :layout
 end
 
+def input_validation(*params)
+  message = nil
+  params.each_with_index do |value, index|
+    if index == 0
+      message = "Name must not be blank." if value.nil?
+    else
+      message = "Please make a selection for Q#{(index)}" if value.nil?
+    end
+  end
+  message
+end
+
 post '/survey/submit/' do
   name = params["name"]
   q1 = params["q1"]
   q2 = params["q2"]
   q3 = params["q3"]
-
-  @storage.add_survey_result(name, q1, q2, q3)
-  session[:success] = "Thanks for submitting the survey."
-  redirect '/'
+  error = input_validation(name, q1, q2, q3)
+  if error
+    session[:error] = error
+    erb :survey, layout: :layout
+  else
+    @storage.add_survey_result(name, q1, q2, q3)
+    session[:success] = "Thanks for submitting the survey."
+    redirect '/'
+  end
 end
