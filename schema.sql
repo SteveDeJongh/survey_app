@@ -6,7 +6,7 @@ CREATE TABLE users (
 
 CREATE TABLE responses (
   id SERIAL PRIMARY KEY,
-  created_on timestamptz,
+  created_on timestamptz DEFAULT now(),
   name varchar(50),
   q1 text,
   q2 text,

@@ -17,10 +17,10 @@
     </div>
     <div class='nav_bar'>
       <ul>
-        <li> Survey </li>
+        <li> <a href='/survey'>Survey</a> </li>
         <% if signed_in? %>
           <li> Results </li>
-          <li> Sign out </li>
+          <li> <a href='/signout'> Sign out </a></li>
         <% else %>
           <li><a href='/signin'>Sign In</a></li>
         <% end %> 

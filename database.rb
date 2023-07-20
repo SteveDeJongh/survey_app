@@ -22,4 +22,13 @@ class DatabasePersistence
               password: tuple["password"] }
             end.first
   end
+
+  def add_survey_result(name, q1, q2, q3)
+    sql = <<~SQL
+      INSERT INTO responses (name, q1, q2, q3)
+      VALUES ($1, $2, $3, $4);
+    SQL
+    
+    query(sql, name, q1, q2, q3)
+  end
 end

@@ -20,12 +20,11 @@ end
 
 before do
   @storage = DatabasePersistence.new
-  session[:signed_in] = false
 end
 
 helpers do
   def signed_in?
-    session[:signed_in]
+    session[:signed_in] == true
   end
 
   def valid_credentials?(username, password)
@@ -49,10 +48,32 @@ post '/signin' do
   if valid_credentials?(params[:username], params[:password])
     session[:username] = params[:username]
     session[:signed_in] = true
-    session[:success] = "#{params[:username]} sgined in!"
+    session[:success] = "#{params[:username]} signed in!"
     redirect '/'
   else
     session[:error] = "Invalid credentials."
     erb :sign_in, layout: :layout
   end
+end
+
+get '/signout' do
+  session[:username] = nil
+  session[:signed_in] = false
+  session[:success] = "User signed out."
+  redirect '/'
+end
+
+get '/survey' do
+  erb :survey, layout: :layout
+end
+
+post '/survey/submit/' do
+  name = params["name"]
+  q1 = params["q1"]
+  q2 = params["q2"]
+  q3 = params["q3"]
+
+  @storage.add_survey_result(name, q1, q2, q3)
+  session[:success] = "Thanks for submitting the survey."
+  redirect '/'
 end
