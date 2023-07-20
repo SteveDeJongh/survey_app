@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Survey App</title>
+  </head>
+  <body>
+    <div class='page_title'>
+      <h1>Survey App</h1>
+    </div>
+    <div class='nav_bar'>
+      <ul>
+        <li> Survey </li>
+        <% if signed_in? %>
+          <li> Results </li>
+          <li> Sign out </li>
+        <% else %>
+          <li><a href='/signin'>Sign In</a></li>
+        <% end %> 
+    </div>
+    <%= yield %>
+  </body>
+</html>
