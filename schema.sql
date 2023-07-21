@@ -15,3 +15,15 @@ CREATE TABLE responses (
 
 INSERT INTO users (name, password)
 VALUES ('Admin', '$2a$12$0XgEG6VcjXnEJXwZCVU92udirn1Ysfj1OnSiR.sMkn1LoM0dufZZ.');
+
+
+--! Notes
+
+SELECT count(id) as IDS,
+       count(case WHEN q1 ILIKE 'Yes' THEN 1 end) AS Q1A,
+       count(case WHEN q1 ILIKE 'No' THEN 1 end) AS Q1B,
+       count(case WHEN q2 ILIKE 'Male' THEN 1 end) AS Q2A,
+       count(case WHEN q2 ILIKE 'Female' THEN 1 end) AS Q2B,
+       count(case WHEN q3 ILIKE 'Yes' THEN 1 end) AS Q3A,
+       count(case WHEN q3 ILIKE 'No' THEN 1 end) AS Q3B
+       FROM responses;

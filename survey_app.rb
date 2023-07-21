@@ -98,6 +98,7 @@ end
 get '/results' do
   redirect '/' if !signed_in?
   @survey_data = @storage.retrieve_survey_responses
+  @response_summary = @storage.retrieve_response_counts
   erb :results, layout: :layout
 end
 
