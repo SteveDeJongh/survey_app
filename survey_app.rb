@@ -34,6 +34,21 @@ helpers do
     bcrypt_password = BCrypt::Password.new(user_info[:password])
     bcrypt_password == password
   end
+
+  def ordered_survey_data(order)
+    case order
+    when "created_on" then @storage.survey_responses_ordered_by_date
+    when "name"       then @storage.survey_responses_ordered_by_name
+    when "q1"         then @storage.survey_responses_ordered_by_q1
+    when "q2"         then @storage.survey_responses_ordered_by_q2
+    when "q3"         then @storage.survey_responses_ordered_by_q3
+    else                   @storage.survey_responses_ordered_by_id
+    end
+  end
+  
+  def determine_results_order(order)
+    order == "Created On" ? "created_on" : order
+  end  
 end
 
 get '/' do
@@ -102,10 +117,29 @@ get '/results' do
   erb :results, layout: :layout
 end
 
+get '/results/:order' do
+  order = determine_results_order(params[:order])
+  @survey_data = ordered_survey_data(order)
+  @response_summary = @storage.retrieve_response_counts
+  session[:success] = "Ordering by #{order}"
+  erb :results, layout: :layout
+end
+
 get '/result/:id' do
   id = params[:id].to_i
   @response_data = @storage.retrieve_survey_response(id)
   erb :result, layout: :layout
+end
+
+get '/response/delete/:id' do
+  id = params[:id]
+  if @storage.all_response_ids.include?(id)
+    @storage.delete_response(id.to_i)
+    session[:success] = "Reponse #{id} has been deleted."
+  else
+    session[:error] = "Response #{id} not found."
+  end
+  redirect '/results'
 end
 
 def responses_in_rows(data)
@@ -117,6 +151,7 @@ def responses_in_rows(data)
       <td>#{row[:q1]}</td>
       <td>#{row[:q2]}</td>
       <td>#{row[:q3]}</td>
+      <td><a href='/response/delete/#{row[:id]}'>Delete</a></td>
     </tr>"
   end.join
 end

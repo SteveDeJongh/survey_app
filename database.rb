@@ -39,6 +39,48 @@ class DatabasePersistence
     tuple_to_hash_array(result)
   end
 
+  def survey_responses_ordered_by_id
+    sql = "SELECT * FROM responses ORDER BY id;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def survey_responses_ordered_by_date
+    sql = "SELECT * FROM responses ORDER BY created_on;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def survey_responses_ordered_by_name
+    sql = "SELECT * FROM responses ORDER BY name;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def survey_responses_ordered_by_q1
+    sql = "SELECT * FROM responses ORDER BY q1;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def survey_responses_ordered_by_q2
+    sql = "SELECT * FROM responses ORDER BY q2;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def survey_responses_ordered_by_q3
+    sql = "SELECT * FROM responses ORDER BY q3;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
   def retrieve_survey_response(id)
     sql = "SELECT * FROM responses WHERE id = $1;"
 
@@ -60,7 +102,17 @@ class DatabasePersistence
 
     query(sql).values.flatten
   end
-  
+
+  def delete_response(id)
+    sql = "DELETE FROM responses WHERE id = $1;"
+    query(sql, id)
+  end
+
+  def all_response_ids
+    sql = "SELECT id FROM responses;"
+    query(sql).values.flatten
+  end
+
   private
 
   def tuple_to_hash_array(tuples)

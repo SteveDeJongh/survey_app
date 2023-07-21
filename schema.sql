@@ -17,6 +17,19 @@ INSERT INTO users (name, password)
 VALUES ('Admin', '$2a$12$0XgEG6VcjXnEJXwZCVU92udirn1Ysfj1OnSiR.sMkn1LoM0dufZZ.');
 
 
+--! Sample Data
+
+INSERT INTO responses (created_on, name, q1, q2, q3)
+VALUES ('2023-07-20 16:27:51.530979-07', 'Steve', 'Yes', 'Female', 'No'),
+       ('2023-07-18 19:27:51.530979-07', 'Simon', 'No', 'Female', 'No'),
+       ('2023-07-19 12:27:51.530979-07', 'David', 'No', 'Male', 'Yes'),
+       ('2023-07-15 11:27:51.530979-07', 'Yanni', 'Yes', 'Female', 'No'),
+       ('2023-06-20 12:27:51.530979-07', 'Norm', 'No', 'Female', 'Yes'),
+       ('2023-06-21 16:27:51.530979-07', 'Ralf', 'No', 'Male', 'No'),
+       ('2023-06-10 18:27:51.530979-07', 'Gerald', 'Yes', 'Male', 'Yes'),
+       ('2023-07-20 16:27:51.530979-07', 'John', 'Yes', 'Female', 'No');
+
+  5 | 2023-07-20 16:27:51.530979-07 | Gerald          | Yes | Male | no
 --! Notes
 
 SELECT count(id) as IDS,
