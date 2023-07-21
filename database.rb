@@ -31,4 +31,31 @@ class DatabasePersistence
     
     query(sql, name, q1, q2, q3)
   end
+
+  def retrieve_survey_responses
+    sql = "SELECT * FROM responses;"
+
+    result = query(sql)
+    tuple_to_hash_array(result)
+  end
+
+  def retrieve_survey_response(id)
+    sql = "SELECT * FROM responses WHERE id = $1;"
+
+    result = query(sql, id)
+    tuple_to_hash_array(result)
+  end
+
+  private
+
+  def tuple_to_hash_array(tuples)
+    tuples.map do |tuple|
+                { id: tuple["id"],
+                  created_on: tuple["created_on"],
+                  name: tuple["name"],
+                  q1: tuple["q1"],
+                  q2: tuple["q2"],
+                  q3: tuple["q3"] }
+              end
+  end
 end

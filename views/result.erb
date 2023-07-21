@@ -1,0 +1,13 @@
+<h1> Viewing <%= @response_data[0][:name]%>'s survey response</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Created On</th>
+    <th>Name</th>
+    <th>Q1</th>
+    <th>Q2</th>
+    <th>Q3</th>
+  </tr>
+  <%= responses_in_rows(@response_data) %>
+</table>

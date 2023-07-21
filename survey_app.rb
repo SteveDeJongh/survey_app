@@ -94,3 +94,28 @@ post '/survey/submit/' do
     redirect '/'
   end
 end
+
+get '/results' do
+  redirect '/' if !signed_in?
+  @survey_data = @storage.retrieve_survey_responses
+  erb :results, layout: :layout
+end
+
+get '/result/:id' do
+  id = params[:id].to_i
+  @response_data = @storage.retrieve_survey_response(id)
+  erb :result, layout: :layout
+end
+
+def responses_in_rows(data)
+  data.map do |row|
+    "<tr>
+      <td><a href='result/#{row[:id]}'>#{row[:id]}</a></td>
+      <td>#{row[:created_on]}</td>
+      <td>#{row[:name]}</td>
+      <td>#{row[:q1]}</td>
+      <td>#{row[:q2]}</td>
+      <td>#{row[:q3]}</td>
+    </tr>"
+  end.join
+end
